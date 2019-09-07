@@ -1,4 +1,4 @@
-import { HasPhoneNumber, HasEmail } from "./1-basics";
+import { HasEmail, HasPhoneNumber } from './1-basics';
 
 //== TYPE ALIAS ==//
 /**
@@ -45,7 +45,7 @@ const emailer: ContactMessenger1 = (_contact, _message) => {
  */
 
 interface ContactConstructor {
-  new (...args: any[]): HasEmail | HasPhoneNumber;
+  new(...args: any[]): HasEmail | HasPhoneNumber;
 }
 
 /**
@@ -63,16 +63,16 @@ interface ContactConstructor {
 interface PhoneNumberDict {
   // arr[0],  foo['myProp']
   [numberName: string]:
-    | undefined
-    | {
-        areaCode: number;
-        num: number;
-      };
+  | undefined
+  | {
+    areaCode: number;
+    num: number;
+  };
 }
 
 const d: PhoneNumberDict = {}
-if(typeof d.abc === 'undefined') {
-    d.abc;
+if (typeof d.abc === 'undefined') {
+  d.abc;
 }
 
 const phoneDict: PhoneNumberDict = {

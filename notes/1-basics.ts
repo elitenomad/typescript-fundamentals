@@ -23,7 +23,7 @@ const y = "hello world";
  * (4a) Object keys retain general types as the const objects key values are mutable
  */
 const yObj = {
-    name: 'Pranava',
+  name: 'Pranava',
 }
 
 /**
@@ -137,15 +137,15 @@ export interface HasEmail {
 let contactInfo: HasEmail | HasPhoneNumber =
   Math.random() > 0.5
     ? {
-        // we can assign it to a HasPhoneNumber
-        name: "Mike",
-        phone: 3215551212
-      }
+      // we can assign it to a HasPhoneNumber
+      name: "Mike",
+      phone: 3215551212
+    }
     : {
-        // or a HasEmail
-        name: "Mike",
-        email: "mike@example.com"
-      };
+      // or a HasEmail
+      name: "Mike",
+      email: "mike@example.com"
+    };
 
 // contactInfo.name; // NOTE: we can only access the .name property  (the stuff HasPhoneNumber and HasEmail have in common)
 
