@@ -1,17 +1,16 @@
-import { HasEmail } from "./1-basics";
-
 //== TOP TYPES ==//
+import { HasEmail } from './1-basics';
 
 /**
  * (1) "Top types" are types that can hold any value. Typescript has two of them
  */
 
-// let myAny: any = 32;
-// let myUnknown: unknown = "hello, unknown";
+let myAny: any = 32;
+let myUnknown: unknown = "hello, unknown";
 
 // Note that we can do whatever we want with an any, but nothing with an unknown
 
-// myAny.foo.bar.baz;
+myAny.foo.bar.baz;
 // myUnknown.foo;
 
 /**
@@ -19,10 +18,10 @@ import { HasEmail } from "./1-basics";
  * Anys are good for areas of our programs where we want maximum flexibility
  * Example: sometimes a Promise<any> is fine when we don't care at all about the resolved value
  */
-// async function logWhenResolved(p: Promise<any>) {
-//   const val = await p;
-//   console.log("Resolved to: ", val);
-// }
+async function logWhenResolved(p: Promise<any>) {
+    const val = await p;
+    console.log("Resolved to: ", val);
+}
 
 /**
  * (3) When to use `unknown`
@@ -37,29 +36,29 @@ import { HasEmail } from "./1-basics";
 /**
  * (4) Built-in type guards
  */
-// if (typeof myUnknown === "string") {
-//   // in here, myUnknown is of type string
-//   myUnknown.split(", "); // ✅ OK
-// }
-// if (myUnknown instanceof Promise) {
-//   // in here, myUnknown is of type Promise<any>
-//   myUnknown.then(x => console.log(x));
-// }
+if (typeof myUnknown === "string") {
+    // in here, myUnknown is of type string
+    myUnknown.split(", "); // ✅ OK
+}
+if (myUnknown instanceof Promise) {
+    // in here, myUnknown is of type Promise<any>
+    myUnknown.then(x => console.log(x));
+}
 
 /**
  * (5) User-defined type guards
  * We can also create our own type guards, using functions that return booleans
  */
 
-// // 💡 Note return type
-// function isHasEmail(x: any): x is HasEmail {
-//   return typeof x.name === "string" && typeof x.email === "string";
-// }
+// 💡 Note return type
+function isHasEmail(x: any): x is HasEmail {
+    return typeof x.name === "string" && typeof x.email === "string";
+}
 
-// if (isHasEmail(myUnknown)) {
-//   // In here, myUnknown is of type HasEmail
-//   console.log(myUnknown.name, myUnknown.email);
-// }
+if (isHasEmail(myUnknown)) {
+    // In here, myUnknown is of type HasEmail
+    console.log(myUnknown.name, myUnknown.email);
+}
 
 // // my most common guard
 // function isDefined<T>(arg: T | undefined): arg is T {
@@ -72,9 +71,10 @@ import { HasEmail } from "./1-basics";
  * -   Look how we can get mixed up below
  */
 
-// let aa: unknown = 41;
-// let bb: unknown = ["a", "string", "array"];
-// bb = aa; // 🚨 yikes
+let aa: unknown = 41;
+let bb: unknown = ["a", "string", "array"];
+bb = aa; // 🚨 yikes
+aa = bb;
 
 /**
  * (7) Alternative to unknowns - branded types
@@ -84,28 +84,28 @@ import { HasEmail } from "./1-basics";
  */
 
 /* two branded types, each with "brand" and "unbrand" functions */
-// interface BrandedA {
-//   __this_is_branded_with_a: "a";
-// }
-// function brandA(value: string): BrandedA {
-//   return (value as unknown) as BrandedA;
-// }
-// function unbrandA(value: BrandedA): string {
-//   return (value as unknown) as string;
-// }
+interface BrandedA {
+    __this_is_branded_with_a: "a";
+}
+function brandA(value: string): BrandedA {
+    return (value as unknown) as BrandedA;
+}
+function unbrandA(value: BrandedA): string {
+    return (value as unknown) as string;
+}
 
-// interface BrandedB {
-//   __this_is_branded_with_b: "b";
-// }
-// function brandB(value: { abc: string }): BrandedB {
-//   return (value as unknown) as BrandedB;
-// }
-// function unbrandB(value: BrandedB): { abc: string } {
-//   return (value as unknown) as { abc: string };
-// }
+interface BrandedB {
+    __this_is_branded_with_b: "b";
+}
+function brandB(value: { abc: string }): BrandedB {
+    return (value as unknown) as BrandedB;
+}
+function unbrandB(value: BrandedB): { abc: string } {
+    return (value as unknown) as { abc: string };
+}
 
-// let secretA = brandA("This is a secret value");
-// let secretB = brandB({ abc: "This is a different secret value" });
+let secretA = brandA("This is a secret value");
+let secretB = brandB({ abc: "This is a different secret value" });
 
 // secretA = secretB; // ✅ No chance of getting these mixed up
 // unbrandB(secretA);
@@ -122,7 +122,7 @@ import { HasEmail } from "./1-basics";
 /**
  * (8) Bottom types can hold no values. TypeScript has one of these: `never`
  */
-// let n: never = 4;
+let n: never = 4;
 
 /**
  * A common place where you'll end up with a never
